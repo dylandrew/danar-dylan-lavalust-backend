@@ -15,7 +15,8 @@ RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/Allo
 COPY . /var/www/html/
  
 # Fix permissions
-RUN usermod -a -G 1000 www-data \
+RUN groupadd --gid 1000 render-secrets \
+&& usermod -a -G render-secrets www-data \
 && chown -R www-data:www-data /var/www/html \
 && chmod -R 755 /var/www/html
  
