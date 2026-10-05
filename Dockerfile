@@ -15,7 +15,8 @@ RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/Allo
 COPY . /var/www/html/
  
 # Fix permissions
-RUN chown -R www-data:www-data /var/www/html \
+RUN usermod -a -G 1000 www-data \
+&& chown -R www-data:www-data /var/www/html \
 && chmod -R 755 /var/www/html
  
 # Point Apache document root to public/
